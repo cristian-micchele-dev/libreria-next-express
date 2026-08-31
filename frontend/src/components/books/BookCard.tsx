@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useState } from "react";
 import type { Book } from "@/types";
 import { getHighResBookCover } from "@/lib/image-utils";
+import { ScrollReveal } from "@/components/ui/scroll-reveal";
 
 interface BookCardProps {
   book: Book;
@@ -32,10 +33,10 @@ export function BookCard({ book, index = 0, searchQuery }: BookCardProps) {
     : `/libro/${book.id}`;
 
   return (
+    <ScrollReveal delay={index * 60}>
     <Link
       href={bookHref}
-      className="group animate-fade-in-up block"
-      style={{ animationDelay: `${index * 60}ms` }}
+      className="group block"
     >
       <article className="relative">
         {/* Book cover with spine shadow */}
@@ -81,5 +82,6 @@ export function BookCard({ book, index = 0, searchQuery }: BookCardProps) {
         </div>
       </article>
     </Link>
+    </ScrollReveal>
   );
 }

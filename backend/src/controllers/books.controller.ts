@@ -4,6 +4,7 @@ import { searchBooks, getBookById, getFeaturedBooks } from "../services/google-b
 export async function search(req: Request, res: Response) {
   const query = req.query.q as string;
   const page = parseInt(req.query.page as string) || 1;
+  const category = req.query.cat as string | undefined;
 
   if (!query || query.trim().length === 0) {
     res.status(400).json({ error: "Query parameter 'q' is required" });
@@ -11,7 +12,8 @@ export async function search(req: Request, res: Response) {
   }
 
   try {
-    const result = await searchBooks(query.trim(), page);
+    const fullQuery = category ? `${query.trim()}+subject:${category}` : query.trim();
+    const result = await searchBooks(fullQuery, page);
     res.json(result);
   } catch (err) {
     console.error("Search error:", err);

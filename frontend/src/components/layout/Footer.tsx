@@ -1,9 +1,11 @@
 import { BookMarked, MapPin, Clock, Phone } from "lucide-react";
+import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import Link from "next/link";
 
 export function Footer() {
   return (
     <footer className="mt-auto border-t border-border/60 bg-secondary/30">
+      <ScrollReveal>
       <div className="mx-auto max-w-7xl px-6 py-12">
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
@@ -30,10 +32,10 @@ export function Footer() {
             <Link href="/buscar" className="text-sm text-muted-foreground hover:text-primary transition-colors">
               Catalogo
             </Link>
-            <Link href="/buscar?q=ficcion" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+            <Link href="/buscar?q=ficcion&cat=fiction" className="text-sm text-muted-foreground hover:text-primary transition-colors">
               Ficcion
             </Link>
-            <Link href="/buscar?q=no+ficcion" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+            <Link href="/buscar?q=no+ficcion&cat=nonfiction" className="text-sm text-muted-foreground hover:text-primary transition-colors">
               No ficcion
             </Link>
           </div>
@@ -85,6 +87,7 @@ export function Footer() {
           </div>
         </div>
       </div>
+      </ScrollReveal>
     </footer>
   );
 }

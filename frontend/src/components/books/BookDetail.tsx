@@ -11,6 +11,7 @@ import { getHighResBookCover } from "@/lib/image-utils";
 import { useFavorites } from "@/hooks/useFavorites";
 import { useAuth } from "@/hooks/useAuth";
 import { useState } from "react";
+import { ScrollReveal } from "@/components/ui/scroll-reveal";
 
 interface BookDetailProps {
   book: Book;
@@ -159,17 +160,20 @@ export function BookDetail({ book }: BookDetailProps) {
 
         {/* Description */}
         {book.description && (
-          <div className="paper-texture rounded-lg p-6 border border-border/40">
-            <h2 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-3">
-              Sinopsis
-            </h2>
-            <p className="text-foreground/80 leading-[1.8] text-[15px]">
-              {book.description}
-            </p>
-          </div>
+          <ScrollReveal>
+            <div className="paper-texture rounded-lg p-6 border border-border/40">
+              <h2 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-3">
+                Sinopsis
+              </h2>
+              <p className="text-foreground/80 leading-[1.8] text-[15px]">
+                {book.description}
+              </p>
+            </div>
+          </ScrollReveal>
         )}
 
         {/* Metadata grid */}
+        <ScrollReveal delay={100}>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           {book.page_count && (
             <div className="flex flex-col gap-1.5 rounded-lg border border-border/40 p-4">
@@ -204,6 +208,7 @@ export function BookDetail({ book }: BookDetailProps) {
             </div>
           )}
         </div>
+        </ScrollReveal>
       </div>
     </div>
   );

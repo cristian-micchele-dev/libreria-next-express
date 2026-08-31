@@ -1,4 +1,5 @@
 import { buttonVariants } from "@/components/ui/button";
+import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { BookGrid } from "@/components/books/BookGrid";
 import { Search, ArrowRight, BookMarked, Sparkles, TrendingUp } from "lucide-react";
 import Link from "next/link";
@@ -80,58 +81,66 @@ export default async function Home() {
       </section>
 
       {/* Categories quick access */}
-      <section className="border-b border-border/40 bg-secondary/20">
-        <div className="mx-auto max-w-7xl px-6 py-6">
-          <div className="flex items-center gap-6 overflow-x-auto no-scrollbar">
-            <span className="text-sm font-medium text-muted-foreground shrink-0">Explorar:</span>
-            {["Ficcion", "No ficcion", "Ciencia", "Historia", "Poesia", "Infantil", "Filosofia", "Arte", "Terror", "Romance", "Fantasia", "Biografia", "Psicologia", "Economia", "Programacion"].map((cat) => (
-              <Link
-                key={cat}
-                href={`/buscar?q=${encodeURIComponent(cat.toLowerCase())}`}
-                className="shrink-0 rounded-full border border-border/60 bg-background px-4 py-1.5 text-sm text-foreground/80 transition-all hover:border-primary/30 hover:bg-primary/5 hover:text-primary"
-              >
-                {cat}
-              </Link>
-            ))}
+      <ScrollReveal>
+        <section className="border-b border-border/40 bg-secondary/20">
+          <div className="mx-auto max-w-7xl px-6 py-6">
+            <div className="flex items-center gap-6 overflow-x-auto no-scrollbar">
+              <span className="text-sm font-medium text-muted-foreground shrink-0">Explorar:</span>
+              {["Ficcion", "No ficcion", "Ciencia", "Historia", "Poesia", "Infantil", "Filosofia", "Arte", "Terror", "Romance", "Fantasia", "Biografia", "Psicologia", "Economia", "Programacion"].map((cat) => (
+                <Link
+                  key={cat}
+                  href={`/buscar?q=${encodeURIComponent(cat.toLowerCase())}`}
+                  className="shrink-0 rounded-full border border-border/60 bg-background px-4 py-1.5 text-sm text-foreground/80 transition-all hover:border-primary/30 hover:bg-primary/5 hover:text-primary"
+                >
+                  {cat}
+                </Link>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </ScrollReveal>
 
       {/* Featured books */}
       {featuredBooks.length > 0 && (
         <section className="mx-auto max-w-7xl px-6 py-16 sm:py-20">
-          <div className="flex items-end justify-between mb-10">
-            <div>
-              <h2
-                className="text-3xl sm:text-4xl font-bold tracking-tight editorial-rule"
-                style={{ fontFamily: "var(--font-heading)" }}
+          <ScrollReveal>
+            <div className="flex items-end justify-between mb-10">
+              <div>
+                <h2
+                  className="text-3xl sm:text-4xl font-bold tracking-tight editorial-rule"
+                  style={{ fontFamily: "var(--font-heading)" }}
+                >
+                  Libros destacados
+                </h2>
+                <p className="text-muted-foreground mt-4 text-sm">
+                  Nuestra seleccion de titulos imperdibles
+                </p>
+              </div>
+              <Link
+                href="/buscar"
+                className="hidden sm:flex items-center gap-1 text-sm text-primary hover:gap-2 transition-all font-medium"
               >
-                Libros destacados
-              </h2>
-              <p className="text-muted-foreground mt-4 text-sm">
-                Nuestra seleccion de titulos imperdibles
-              </p>
+                Ver todos
+                <ArrowRight className="h-4 w-4" />
+              </Link>
             </div>
-            <Link
-              href="/buscar"
-              className="hidden sm:flex items-center gap-1 text-sm text-primary hover:gap-2 transition-all font-medium"
-            >
-              Ver todos
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
+          </ScrollReveal>
 
-          <BookGrid books={featuredBooks} />
+          <ScrollReveal delay={150}>
+            <BookGrid books={featuredBooks} />
+          </ScrollReveal>
 
-          <div className="flex justify-center mt-10 sm:hidden">
-            <Link
-              href="/buscar"
-              className={buttonVariants({ variant: "outline" }) + " gap-2"}
-            >
-              Ver todos los libros
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
+          <ScrollReveal delay={300}>
+            <div className="flex justify-center mt-10 sm:hidden">
+              <Link
+                href="/buscar"
+                className={buttonVariants({ variant: "outline" }) + " gap-2"}
+              >
+                Ver todos los libros
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </ScrollReveal>
         </section>
       )}
     </div>

@@ -8,7 +8,7 @@ import type { Book, PaginatedResponse } from "@/types";
 import { API_URL } from "@/lib/api";
 
 interface SearchPageProps {
-  searchParams: Promise<{ q?: string; page?: string }>;
+  searchParams: Promise<{ q?: string; page?: string; cat?: string }>;
 }
 
 export async function generateMetadata({ searchParams }: SearchPageProps): Promise<Metadata> {
@@ -25,9 +25,12 @@ export async function generateMetadata({ searchParams }: SearchPageProps): Promi
   };
 }
 
-async function searchBooks(query: string, page: number): Promise<PaginatedResponse<Book>> {
+async function searchBooks(query: string, page: number, category?: string): Promise<PaginatedResponse<Book>> {
+  const params = new URLSearchParams({ q: query, page: page.toString() });
+  if (category) params.set("cat", category);
+
   const res = await fetch(
-    `${API_URL}/books/search?q=${encodeURIComponent(query)}&page=${page}`,
+    `${API_URL}/books/search?${params}`,
     { cache: "no-store" }
   );
 
@@ -42,10 +45,11 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
   const params = await searchParams;
   const query = params.q || "";
   const page = parseInt(params.page || "1");
+  const category = params.cat;
   const isExploring = !query;
   const searchQuery = query || "libros";
 
-  const result = await searchBooks(searchQuery, page);
+  const result = await searchBooks(searchQuery, page, category);
 
   return (
     <div className="mx-auto max-w-7xl px-6 py-10">
